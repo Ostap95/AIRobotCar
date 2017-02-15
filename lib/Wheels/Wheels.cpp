@@ -8,75 +8,48 @@
 #include "Wheels.h"
 #include "../AFMotor/AFMotor.h"
 
-AF_DCMotor motor1(1);
-AF_DCMotor motor2(2);
-AF_DCMotor motor3(3);
-AF_DCMotor motor4(4);
 
-void moveForward(unsigned int speed) {
-  motor1.setSpeed(speed);
-  motor2.setSpeed(speed);
-  motor3.setSpeed(speed);
-  motor4.setSpeed(speed);
-  motor1.run(FORWARD);
-  motor2.run(FORWARD);
-  motor3.run(FORWARD);
-  motor4.run(FORWARD);
+#define RIGHT_DIRECTION FORWARD
+#define LEFT_DIRECTION BACKWARD
+
+unsigned int motorSpeed = 250;
+
+AF_DCMotor motor_back(2); // Back Motor
+AF_DCMotor motor_front(3); // Front Motor
+AF_DCMotor motor_direction(4); // Direction Motor
+
+void wheelsSetup() {
+  motor_back.setSpeed(motorSpeed);
+  motor_direction.setSpeed(motorSpeed);
+  motor_front.setSpeed(motorSpeed);
+}
+void driveForward() {
+  motor_back.run(FORWARD);
+  motor_front.run(FORWARD);
+  motor_direction.run(RELEASE);
 }
 
-void stopCar(void) {
-  motor1.setSpeed(0);
-  motor2.setSpeed(0);
-  motor3.setSpeed(0);
-  motor4.setSpeed(0);
-  motor1.run(RELEASE); // Turn off the motor
-  motor2.run(RELEASE);
-  motor3.run(RELEASE);
-  motor4.run(RELEASE);
+void stopMotors() {
+  motor_back.run(RELEASE);
+  motor_front.run(RELEASE);
 }
 
-
-void turnRight(unsigned int speed, unsigned int duration) {
-  motor1.setSpeed(speed);
-  motor2.setSpeed(speed);
-  motor3.setSpeed(0);
-  motor4.setSpeed(0);
-  motor3.run(RELEASE);
-  motor4.run(RELEASE);
-  unsigned int startTime = millis();
-  unsigned int endTime = startTime;
-  while ((endTime - startTime) <= duration) {
-    motor1.run(BACKWARD);
-    motor2.run(FORWARD);
-    endTime = millis();
-  }
+void driveBackward() {
+  motor_back.run(BACKWARD);
+  motor_front.run(BACKWARD);
 }
 
-void turnLeft(unsigned int speed, unsigned int duration) {
-  motor1.setSpeed(speed);
-  motor2.setSpeed(speed);
-  motor3.setSpeed(0);
-  motor4.setSpeed(0);
-  motor3.run(RELEASE);
-  motor4.run(RELEASE);
-  unsigned int startTime = millis();
-  unsigned int endTime = startTime;
-  while ((endTime - startTime) <= duration) {
-    motor1.run(FORWARD);
-    motor2.run(BACKWARD);
-  }
+void turnRight() {
+  motor_direction.run(RIGHT_DIRECTION);
 }
 
+void turnLeft() {
+  motor_direction.run(LEFT_DIRECTION);
+}
 
 void backUp(unsigned int speed, unsigned int duration) {
-  motor1.setSpeed(speed);
-  motor2.setSpeed(speed);
-  motor3.setSpeed(speed);
-  motor4.setSpeed(speed);
   for(uint8_t i = 0; i < duration; i++) {
-    motor1.run(BACKWARD);
-    motor2.run(BACKWARD);
-    motor3.run(BACKWARD);
-    motor4.run(BACKWARD);
+    driveBackward();
   }
+  stopMotors();
 }

@@ -9,10 +9,11 @@
 #ifndef Wheels_h
 #define Wheels_h
 
-void moveForward(unsigned int speed);
-void stopCar();
-void turnLeft(unsigned int speed, unsigned int duration);
-void turnRight(unsigned int speed, unsigned int duration);
+void wheelsSetup();
+void driveForward();
+void stopMotors();
+void turnLeft();
+void turnRight();
 void backUp(unsigned int speed, unsigned int duration);
 
 #endif
