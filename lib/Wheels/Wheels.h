@@ -11,8 +11,8 @@
 
 void moveForward(unsigned int speed);
 void stopCar();
-void turnLeft(unsigned int speed);
-void turnRight(unsigned int speed);
+void turnLeft(unsigned int speed, unsigned int duration);
+void turnRight(unsigned int speed, unsigned int duration);
 void backUp(unsigned int speed, unsigned int duration);
 
 #endif

@@ -36,26 +36,35 @@ void stopCar(void) {
 }
 
 
-void turnRight(unsigned int speed) {
+void turnRight(unsigned int speed, unsigned int duration) {
   motor1.setSpeed(speed);
   motor2.setSpeed(speed);
   motor3.setSpeed(0);
   motor4.setSpeed(0);
-  motor1.run(BACKWARD);
-  motor2.run(FORWARD);
   motor3.run(RELEASE);
   motor4.run(RELEASE);
+  unsigned int startTime = millis();
+  unsigned int endTime = startTime;
+  while ((endTime - startTime) <= duration) {
+    motor1.run(BACKWARD);
+    motor2.run(FORWARD);
+    endTime = millis();
+  }
 }
 
-void turnLeft(unsigned int speed) {
+void turnLeft(unsigned int speed, unsigned int duration) {
   motor1.setSpeed(speed);
   motor2.setSpeed(speed);
   motor3.setSpeed(0);
   motor4.setSpeed(0);
-  motor1.run(FORWARD);
-  motor2.run(BACKWARD);
   motor3.run(RELEASE);
   motor4.run(RELEASE);
+  unsigned int startTime = millis();
+  unsigned int endTime = startTime;
+  while ((endTime - startTime) <= duration) {
+    motor1.run(FORWARD);
+    motor2.run(BACKWARD);
+  }
 }
 
 
@@ -70,5 +79,4 @@ void backUp(unsigned int speed, unsigned int duration) {
     motor3.run(BACKWARD);
     motor4.run(BACKWARD);
   }
-  stopCar();
 }
