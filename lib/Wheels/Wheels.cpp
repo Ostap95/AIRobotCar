@@ -12,7 +12,7 @@
 #define RIGHT_DIRECTION FORWARD
 #define LEFT_DIRECTION BACKWARD
 
-unsigned int motorSpeed = 250;
+unsigned int motorSpeed = 255;
 
 AF_DCMotor motor_back(2); // Back Motor
 AF_DCMotor motor_front(3); // Front Motor
@@ -26,7 +26,6 @@ void wheelsSetup() {
 void driveForward() {
   motor_back.run(FORWARD);
   motor_front.run(FORWARD);
-  motor_direction.run(RELEASE);
 }
 
 void stopMotors() {
@@ -40,10 +39,12 @@ void driveBackward() {
 }
 
 void turnRight() {
+  driveForward();
   motor_direction.run(RIGHT_DIRECTION);
 }
 
 void turnLeft() {
+  driveForward();
   motor_direction.run(LEFT_DIRECTION);
 }
 
@@ -51,5 +52,8 @@ void backUp(unsigned int speed, unsigned int duration) {
   for(uint8_t i = 0; i < duration; i++) {
     driveBackward();
   }
-  stopMotors();
+}
+
+void releaseDirection() {
+  motor_direction.run(RELEASE);
 }

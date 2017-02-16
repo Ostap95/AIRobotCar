@@ -19,18 +19,17 @@ void loop() {
 
 void decideMove() {
   unsigned int sonarCenter = getSonarDistance(SONAR_CENTER);
-
-  if(sonarCenter > 40 || sonarCenter > 0) driveForward(); // Move the car forward with the certain speed
-  else stopCar();
-  decideTurn();
-}
-
-void decideTurn() {
   unsigned int sonarLeft = getSonarDistance(SONAR_LEFT);
   unsigned int sonarRight = getSonarDistance(SONAR_RIGHT);
 
-  if((sonarLeft > 40 && sonarRight > 40) || (sonarLeft == 0 || sonarRight == 0)) return;
-  if((sonarLeft < 20 || sonarRight < 20) && (sonarLeft != 0 || sonarRight != 0)) stopMotors();
-  if(sonarLeft < 40) turnRight();
-  if(sonarRight < 40) turnLeft();
+  if(sonarCenter > 40) { // If the path forward is free than continue to drive in straight line
+    driveForward();
+    if (sonarLeft < sonarRight) {
+      turnRight();
+    } else {
+      releaseDirection();
+    }
+  } else {
+    backUp(255, 700);
+  }
 }

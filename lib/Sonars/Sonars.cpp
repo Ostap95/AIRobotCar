@@ -25,6 +25,7 @@ NewPing sonar[SONAR_NUM] = {     // Sensor object array.
 };
 
 unsigned int getSonarDistance(int i) {
+  if (cm[i] == 0) cm[i] = 200;
   return cm[i];
 }
 void sonarsSetup(void) {
