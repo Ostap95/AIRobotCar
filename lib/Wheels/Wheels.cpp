@@ -41,17 +41,18 @@ void driveBackward() {
 void turnRight() {
   driveForward();
   motor_direction.run(RIGHT_DIRECTION);
+  //delay(700);
 }
 
 void turnLeft() {
   driveForward();
   motor_direction.run(LEFT_DIRECTION);
+  //delay(700);
 }
 
-void backUp(unsigned int speed, unsigned int duration) {
-  for(uint8_t i = 0; i < duration; i++) {
+void backUp(unsigned int duration) {
     driveBackward();
-  }
+    delay(duration);
 }
 
 void releaseDirection() {

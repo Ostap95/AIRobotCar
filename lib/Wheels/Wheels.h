@@ -14,7 +14,7 @@ void driveForward();
 void stopMotors();
 void turnLeft();
 void turnRight();
-void backUp(unsigned int speed, unsigned int duration);
+void backUp(unsigned int duration);
 void releaseDirection();
 
 #endif
