@@ -6,6 +6,7 @@
 #define SONAR_LEFT 0
 #define SONAR_CENTER 1
 #define SONAR_RIGHT 2
+#define BACKUP_TIME 2000
 
 void setup() {
   sonarsSetup();
@@ -28,31 +29,34 @@ void decideMove() {
       turnRight();
     } else if (sonarLeft > sonarRight) {
       turnLeft();
-    } else if (sonarLeft < 20) {
-      turnLeft();
-      backUp(1000);
-    } else if (sonarRight < 20) {
-      turnRight();
-      backUp(1000);
     } else {
+      releaseDirection();
+    }
+    if (sonarLeft < 20) {
+      turnLeft();
+      delay(200);
+      backUp(BACKUP_TIME);
+      releaseDirection();
+
+    }
+    if (sonarRight < 20) {
+      turnRight();
+      delay(200);
+      backUp(BACKUP_TIME);
       releaseDirection();
     }
   } else {
     if (sonarLeft < sonarRight){
       turnLeft();
-      backUp(1000);
+      backUp(BACKUP_TIME);
+      releaseDirection();
     } else if (sonarLeft > sonarRight) {
       turnRight();
-      backUp(1000);
-    } else if (sonarLeft < 20) {
-      turnLeft();
-      backUp(1000);
-    } else if (sonarRight < 20) {
-      turnRight();
-      backUp(1000);
+      backUp(BACKUP_TIME);
+      releaseDirection();
     } else {
       releaseDirection();
-      backUp(1000);
+      backUp(BACKUP_TIME);
     }
   }
 }
